@@ -1,17 +1,17 @@
 /*
- *   MyClass
+ *   PrintBuffer
  */
 
-#ifndef MyClass_h
-#define MyClass_h
+#ifndef PrintBuffer_h
+#define PrintBuffer_h
 
 #include "Arduino.h"
 
 // inherit Print
-class MyClass : public Print {
+class PrintBuffer : public Print {
     public:
         // constructor
-        MyClass(unsigned short flushSize = 512, unsigned short flushTime = 1000);
+        PrintBuffer(unsigned short flushSize = 512, unsigned short flushTime = 1000);
         // both print and println call write so we will override write
         size_t write(uint8_t);
         // enable flushing the buffer when time has passed even if buffer size isn't met
@@ -26,7 +26,7 @@ class MyClass : public Print {
         // flush the buffer
         void flush();                
         // used to track multi-char eol
-        unsigned char lastChar;
+        unsigned char lastChar = '\0';
         // size we want the outChars buffer to be
         unsigned short flushSize = 512;
         // time in millis we want to flush the buffer if we haven't exceeded size

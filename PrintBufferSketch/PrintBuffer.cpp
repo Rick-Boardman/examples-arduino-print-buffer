@@ -1,11 +1,11 @@
 /*
- * MyClass
+ * PrintBuffer
  */
 
-#include "MyClass.h"
+#include "PrintBuffer.h"
 
 // constructor
-MyClass::MyClass(unsigned short flushSize, unsigned short flushTime) {
+PrintBuffer::PrintBuffer(unsigned short flushSize, unsigned short flushTime) {
     this->flushSize = flushSize;
     this->flushTime = flushTime;
 
@@ -13,7 +13,7 @@ MyClass::MyClass(unsigned short flushSize, unsigned short flushTime) {
 }
 
 // both print and println call write so we will override write
-size_t MyClass::write(uint8_t inChar) {
+size_t PrintBuffer::write(uint8_t inChar) {
     if (lastChar == '\r') {
         if (inChar == '\n') {
             // add eol to output
@@ -43,7 +43,7 @@ size_t MyClass::write(uint8_t inChar) {
 }
 
 // enable flushing the buffer when time has passed even if buffer size isn't met
-void MyClass::tick() {
+void PrintBuffer::tick() {
     // if it's been more than our flush time since the last flush then flush the buffer
     if ((millis() - lastFlush) > flushTime) {
         // only if there's something to flush
@@ -57,7 +57,7 @@ void MyClass::tick() {
 }
 
 // append chars to the buffer
-void MyClass::outCharsAppend(uint8_t inChar) {
+void PrintBuffer::outCharsAppend(uint8_t inChar) {
     // add the char and increment our position
     outChars[currPos] = inChar;
     currPos++;
@@ -68,9 +68,8 @@ void MyClass::outCharsAppend(uint8_t inChar) {
     }
 }
 
-// TODO timed flush needs to add \r if it was last char since it wouldn't have added to buffer in write
 // flush the buffer
-void MyClass::flush() {
+void PrintBuffer::flush() {
     // terminate the array
     outChars[currPos] = '\0';
     // send the array to the caller
