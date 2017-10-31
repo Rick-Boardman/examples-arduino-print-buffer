@@ -9,7 +9,7 @@ How to add a class to a sketch.
 How to use a callback function.  
 How to add loop cpu time to a class by calling the class tick function.  
 How to use an unsigned char buffer.  
-How to channge end of line characters for output.  
+How to change end of line characters for output.  
 The concept of a first loop setup for things you want separate from Setup.  
 How to reference a serial device by it's stream.
 
